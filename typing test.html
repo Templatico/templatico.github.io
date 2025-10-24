@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Typing Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .game-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .difficulty-selector, .time-selector {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        select, button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        select:hover, button:hover {
+            background: #444;
+            transform: translateY(-2px);
+        }
+
+        button.primary {
+            background: linear-gradient(to right, #ff7e5f, #feb47b);
+            font-weight: bold;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .text-display {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            min-height: 150px;
+            line-height: 1.6;
+            font-size: 1.2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .current-word {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+        }
+
+        .correct {
+            color: #4CAF50;
+        }
+
+        .incorrect {
+            color: #F44336;
+            text-decoration: underline;
+        }
+
+        .input-area {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        #user-input {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        #user-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+        }
+
+        .results {
+            text-align: center;
+            display: none;
+        }
+
+        .results h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .results-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .results-stat {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+        }
+
+        .results-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .accuracy-meter {
+            width: 100%;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .accuracy-fill {
+            height: 100%;
+            background: linear-gradient(to right, #4CAF50, #8BC34A);
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .results-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ultimate Typing Test</h1>
+            <p class="subtitle">Test and improve your typing speed and accuracy</p>
+        </header>
+
+        <div class="game-controls">
+            <div class="difficulty-selector">
+                <label for="difficulty">Difficulty:</label>
+                <select id="difficulty">
+                    <option value="easy">Easy</option>
+                    <option value="medium" selected>Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            
+            <div class="time-selector">
+                <label for="time">Time:</label>
+                <select id="time">
+                    <option value="30">30 seconds</option>
+                    <option value="60" selected>60 seconds</option>
+                    <option value="120">120 seconds</option>
+                </select>
+            </div>
+            
+            <button id="start-btn" class="primary">Start Test</button>
+        </div>
+
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="wpm">0</div>
+                <div class="stat-label">WPM</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="accuracy">100%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="time-left">60</div>
+                <div class="stat-label">Time Left</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="chars-typed">0</div>
+                <div class="stat-label">Characters</div>
+            </div>
+        </div>
+
+        <div class="text-display" id="text-display">
+            Click "Start Test" to begin the typing challenge.
+        </div>
+
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Start typing here..." disabled>
+        </div>
+
+        <div class="results" id="results">
+            <h2>Test Complete!</h2>
+            <div class="results-stats">
+                <div class="results-stat">
+                    <div class="results-value" id="final-wpm">0</div>
+                    <div class="stat-label">Words Per Minute</div>
+                </div>
+                <div class="results-stat">
+                    <div class="results-value" id="final-accuracy">0%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+            </div>
+            <div class="accuracy-meter">
+                <div class="accuracy-fill" id="accuracy-fill"></div>
+            </div>
+            <button id="restart-btn" class="primary">Try Again</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>Ultimate Typing Test &copy; 2023 | Improve your typing skills</p>
+    </footer>
+
+    <script>
+        // Game elements
+        const textDisplay = document.getElementById('text-display');
+        const userInput = document.getElementById('user-input');
+        const startBtn = document.getElementById('start-btn');
+        const restartBtn = document.getElementById('restart-btn');
+        const difficultySelect = document.getElementById('difficulty');
+        const timeSelect = document.getElementById('time');
+        const results = document.getElementById('results');
+        
+        // Stats elements
+        const wpmElement = document.getElementById('wpm');
+        const accuracyElement = document.getElementById('accuracy');
+        const timeLeftElement = document.getElementById('time-left');
+        const charsTypedElement = document.getElementById('chars-typed');
+        const finalWpmElement = document.getElementById('final-wpm');
+        const finalAccuracyElement = document.getElementById('final-accuracy');
+        const accuracyFill = document.getElementById('accuracy-fill');
+        
+        // Game state
+        let gameActive = false;
+        let startTime;
+        let timer;
+        let currentText = '';
+        let currentWordIndex = 0;
+        let correctChars = 0;
+        let totalChars = 0;
+        let wordsTyped = 0;
+        
+        // Text samples by difficulty
+        const textSamples = {
+            easy: [
+                "The quick brown fox jumps over the lazy dog. This sentence contains all letters of the alphabet.",
+                "Programming is fun and challenging. It requires logical thinking and problem solving skills.",
+                "Practice makes perfect. Keep typing regularly to improve your speed and accuracy over time."
+            ],
+            medium: [
+                "JavaScript is a versatile programming language that powers the interactive web. It runs in browsers and servers.",
+                "Web development involves creating websites and web applications using HTML, CSS, and JavaScript technologies.",
+                "Responsive design ensures that websites look good on all devices from desktop computers to mobile phones."
+            ],
+            hard: [
+                "Algorithmic complexity analysis helps developers understand how their code will perform with large inputs.",
+                "Asynchronous programming in JavaScript utilizes callbacks, promises, and async/await patterns for non-blocking operations.",
+                "The Document Object Model represents the structure of HTML documents and enables dynamic content manipulation."
+            ]
+        };
+        
+        // Initialize the game
+        function initGame() {
+            userInput.value = '';
+            userInput.disabled = true;
+            gameActive = false;
+            currentWordIndex = 0;
+            correctChars = 0;
+            totalChars = 0;
+            wordsTyped = 0;
+            
+            updateStats();
+            
+            // Reset text display
+            textDisplay.innerHTML = 'Click "Start Test" to begin the typing challenge.';
+            
+            // Hide results
+            results.style.display = 'none';
+        }
+        
+        // Start the game
+        function startGame() {
+            // Get selected difficulty and time
+            const difficulty = difficultySelect.value;
+            const timeLimit = parseInt(timeSelect.value);
+            
+            // Reset game state
+            gameActive = true;
+            currentWordIndex = 0;
+            correctChars = 0;
+            totalChars = 0;
+            wordsTyped = 0;
+            
+            // Select random text based on difficulty
+            const samples = textSamples[difficulty];
+            currentText = samples[Math.floor(Math.random() * samples.length)];
+            
+            // Display the text
+            displayText();
+            
+            // Enable and focus input
+            userInput.disabled = false;
+            userInput.focus();
+            
+            // Start timer
+            startTime = new Date();
+            timeLeftElement.textContent = timeLimit;
+            
+            // Update timer every second
+            clearInterval(timer);
+            timer = setInterval(() => {
+                const elapsed = Math.floor((new Date() - startTime) / 1000);
+                const timeLeft = timeLimit - elapsed;
+                
+                timeLeftElement.textContent = timeLeft;
+                
+                if (timeLeft <= 0) {
+                    endGame();
+                }
+            }, 1000);
+            
+            // Hide results
+            results.style.display = 'none';
+        }
+        
+        // Display the text with formatting
+        function displayText() {
+            const words = currentText.split(' ');
+            let html = '';
+            
+            words.forEach((word, index) => {
+                if (index === currentWordIndex) {
+                    html += `<span class="current-word">${word}</span> `;
+                } else {
+                    html += `${word} `;
+                }
+            });
+            
+            textDisplay.innerHTML = html;
+        }
+        
+        // Handle user input
+        userInput.addEventListener('input', () => {
+            if (!gameActive) return;
+            
+            const input = userInput.value;
+            const words = currentText.split(' ');
+            const currentWord = words[currentWordIndex];
+            
+            // Check if space was pressed (word completed)
+            if (input.endsWith(' ')) {
+                // Remove the space for comparison
+                const typedWord = input.trim();
+                
+                // Update character counts
+                totalChars += currentWord.length + 1; // +1 for the space
+                if (typedWord === currentWord) {
+                    correctChars += currentWord.length + 1;
+                    wordsTyped++;
+                }
+                
+                // Move to next word
+                currentWordIndex++;
+                userInput.value = '';
+                
+                // Check if all words are completed
+                if (currentWordIndex >= words.length) {
+                    // Reset with new text
+                    const difficulty = difficultySelect.value;
+                    const samples = textSamples[difficulty];
+                    currentText = samples[Math.floor(Math.random() * samples.length)];
+                    currentWordIndex = 0;
+                }
+                
+                displayText();
+            }
+            
+            updateStats();
+        });
+        
+        // Update real-time statistics
+        function updateStats() {
+            // Calculate WPM
+            const elapsedMinutes = (new Date() - startTime) / 60000;
+            const wpm = elapsedMinutes > 0 ? Math.round(wordsTyped / elapsedMinutes) : 0;
+            wpmElement.textContent = wpm;
+            
+            // Calculate accuracy
+            const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
+            accuracyElement.textContent = `${accuracy}%`;
+            
+            // Update characters typed
+            charsTypedElement.textContent = totalChars;
+        }
+        
+        // End the game
+        function endGame() {
+            gameActive = false;
+            clearInterval(timer);
+            userInput.disabled = true;
+            
+            // Calculate final stats
+            const elapsedMinutes = (new Date() - startTime) / 60000;
+            const finalWpm = Math.round(wordsTyped / elapsedMinutes);
+            const finalAccuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 0;
+            
+            // Display final results
+            finalWpmElement.textContent = finalWpm;
+            finalAccuracyElement.textContent = `${finalAccuracy}%`;
+            accuracyFill.style.width = `${finalAccuracy}%`;
+            
+            // Show results
+            results.style.display = 'block';
+        }
+        
+        // Event listeners
+        startBtn.addEventListener('click', () => {
+            if (!gameActive) {
+                startGame();
+            }
+        });
+        
+        restartBtn.addEventListener('click', () => {
+            initGame();
+            startGame();
+        });
+        
+        // Initialize the game
+        initGame();
+    </script>
+</body>
+</html>

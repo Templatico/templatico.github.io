@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Templatico | Our Creations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #6c63ff;
+            --secondary: #4a44c9;
+            --accent: #ff6584;
+            --success: #4CAF50;
+            --dark: #2a2a3c;
+            --light: #f8f9fa;
+            --gray: #8a8aa3;
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 30px 0;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 28px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .logo i {
+            color: var(--primary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active {
+            color: var(--primary);
+        }
+        
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+        
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+        
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.4);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.6);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 50px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* Portfolio Filters */
+        .portfolio-filters {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-button {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--light);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-button.active, .filter-button:hover {
+            background: rgba(108, 99, 255, 0.2);
+            border-color: var(--primary);
+        }
+        
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        
+        .portfolio-item {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .portfolio-image {
+            height: 220px;
+            background: linear-gradient(45deg, #4a44c9, #6c63ff);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .portfolio-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+        }
+        
+        .portfolio-item:hover .portfolio-image::before {
+            animation: shine 1.5s;
+        }
+        
+        @keyframes shine {
+            100% {
+                transform: translateX(100%);
+            }
+        }
+        
+        .portfolio-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .portfolio-content {
+            padding: 25px;
+        }
+        
+        .portfolio-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .portfolio-description {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .portfolio-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .portfolio-tag {
+            background: rgba(108, 99, 255, 0.2);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        
+        .portfolio-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .portfolio-views {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .portfolio-actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-button {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-button:hover {
+            background: var(--primary);
+            transform: scale(1.1);
+        }
+        
+        /* Categories Section */
+        .categories {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .category-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 2rem;
+        }
+        
+        .category-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .category-count {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 80px 0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+        
+        /* Featured Projects */
+        .featured {
+            padding: 80px 0;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .featured-slider {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+        }
+        
+        .featured-project {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.4s, box-shadow 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .featured-project:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .featured-image {
+            height: 250px;
+            background: linear-gradient(45deg, #4a44c9, #6c63ff);
+            position: relative;
+        }
+        
+        .featured-content {
+            padding: 30px;
+        }
+        
+        .featured-title {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: white;
+        }
+        
+        .featured-description {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .featured-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .featured-client {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .featured-year {
+            color: var(--gray);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .cta-section p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+            
+            .featured-slider {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .portfolio-filters {
+                gap: 10px;
+            }
+            
+            .filter-button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .categories-grid, .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .categories-grid, .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* From Uiverse.io by Codecite */ 
+.btn {
+  transition: all 0.3s ease-in-out;
+  font-family: "Dosis", sans-serif;
+}
+
+.btn {
+  width: 150px;
+  height: 60px;
+  border-radius: 50px;
+  background-image: linear-gradient(135deg, #feb692 0%, #ea5455 100%);
+  box-shadow: 0 20px 30px -6px rgba(238, 103, 97, 0.5);
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-size: 24px;
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(3px);
+  box-shadow: none;
+}
+
+.btn:active {
+  opacity: 0.5;
+}
+.blockrush{
+background-size:auto;
+}
+.type{
+background-size: cover;
+}
+/* From Uiverse.io by barisdogansutcu */ 
+button {
+ border: none;
+ position: relative;
+ width: 200px;
+ height: 73px;
+ padding: 0;
+ z-index: 2;
+ -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='868' width='2500' viewBox='0 0 726 252.17'%3E%3Cpath d='M483.92 0S481.38 24.71 466 40.11c-11.74 11.74-24.09 12.66-40.26 15.07-9.42 1.41-29.7 3.77-34.81-.79-2.37-2.11-3-21-3.22-27.62-.21-6.92-1.36-16.52-2.82-18-.75 3.06-2.49 11.53-3.09 13.61S378.49 34.3 378 36a85.13 85.13 0 0 0-30.09 0c-.46-1.67-3.17-11.48-3.77-13.56s-2.34-10.55-3.09-13.61c-1.45 1.45-2.61 11.05-2.82 18-.21 6.67-.84 25.51-3.22 27.62-5.11 4.56-25.38 2.2-34.8.79-16.16-2.47-28.51-3.39-40.21-15.13C244.57 24.71 242 0 242 0H0s69.52 22.74 97.52 68.59c16.56 27.11 14.14 58.49 9.92 74.73C170 140 221.46 140 273 158.57c69.23 24.93 83.2 76.19 90 93.6 6.77-17.41 20.75-68.67 90-93.6 51.54-18.56 103-18.59 165.56-15.25-4.21-16.24-6.63-47.62 9.93-74.73C656.43 22.74 726 0 726 0z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+ mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='868' width='2500' viewBox='0 0 726 252.17'%3E%3Cpath d='M483.92 0S481.38 24.71 466 40.11c-11.74 11.74-24.09 12.66-40.26 15.07-9.42 1.41-29.7 3.77-34.81-.79-2.37-2.11-3-21-3.22-27.62-.21-6.92-1.36-16.52-2.82-18-.75 3.06-2.49 11.53-3.09 13.61S378.49 34.3 378 36a85.13 85.13 0 0 0-30.09 0c-.46-1.67-3.17-11.48-3.77-13.56s-2.34-10.55-3.09-13.61c-1.45 1.45-2.61 11.05-2.82 18-.21 6.67-.84 25.51-3.22 27.62-5.11 4.56-25.38 2.2-34.8.79-16.16-2.47-28.51-3.39-40.21-15.13C244.57 24.71 242 0 242 0H0s69.52 22.74 97.52 68.59c16.56 27.11 14.14 58.49 9.92 74.73C170 140 221.46 140 273 158.57c69.23 24.93 83.2 76.19 90 93.6 6.77-17.41 20.75-68.67 90-93.6 51.54-18.56 103-18.59 165.56-15.25-4.21-16.24-6.63-47.62 9.93-74.73C656.43 22.74 726 0 726 0z'/%3E%3C/svg%3E") no-repeat 50% 50%;
+ -webkit-mask-size: 100%;
+ cursor: pointer;
+ background-color: transparent;
+ transform: translateY(8px)
+}
+
+button:after {
+ content: '';
+ position: absolute;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ box-shadow: 0px 0 0 0 white;
+ transition: all 2s ease;
+}
+
+button:hover:after {
+ box-shadow: 0px -13px 56px 12px #ffffffa6;
+}
+
+button span {
+ position: absolute;
+ width: 100%;
+ font-size: 15px;
+ font-weight: 100;
+ left: 50%;
+ top: 39%;
+ letter-spacing: 3px;
+ text-align: center;
+ transform: translate(-50%,-50%);
+ color: black;
+ transition: all 2s ease;
+}
+
+button:hover span {
+ color: white;
+}
+
+button:before {
+ content: '';
+ position: absolute;
+ width: 0;
+ height: 100%;
+ background-color: black;
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+ transition: all 1s ease;
+}
+
+button:hover:before {
+ width: 100%;
+}
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-laptop"></i>
+                    <span>Templatico</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="templates.html">Templates</a>
+                    <a href="#" class="active">Creations</a>
+                    <a href="themes.html">Themes</a>
+                    <a href="custom-design.html">Custom Design</a>
+                    <a href="about.html">About</a>
+                    
+                </div>
+                <div class="user-actions">
+                    <div class="user-profile">
+                        <div class="avatar">JS</div>
+                        <span>Templatico</span>
+                    </div>
+                    <button class="cta-button">Get Inspired</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Our Creations</h1>
+            <p>Explore our portfolio of stunning websites, innovative templates, and creative projects that showcase our passion for digital excellence.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="portfolio-filters">
+            <button class="filter-button active">All Projects</button>
+            <button class="filter-button">Websites</button>
+            <button class="filter-button">Templates</button>
+            <button class="filter-button">Web Apps</button>
+            <button class="filter-button">Mobile</button>
+            <button class="filter-button">E-commerce</button>
+        </div>
+
+        <div class="portfolio-grid">
+            <!-- Project 1 -->
+            <div class="portfolio-item">
+                <div class="portfolio-image"><img src="data:image/jpeg;base64,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" class="Blockrush">
+                    <div class="portfolio-badge">Featured</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">BlockRush.Ultra tasked game</h3>
+                    <p class="portfolio-description">A modern corporate website with custom dashboard and client portal for a technology consulting firm.</p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Corporate</span>
+                        <span class="portfolio-tag">Dashboard</span>
+                        <span class="portfolio-tag">Responsive</span>
+                    </div>
+                    <div class="portfolio-stats">
+                        <div class="portfolio-views">
+                            <i class="fas fa-eye"></i>
+                            <span>2.4K views</span><button><span><a href="blockrush.html">play now</a></span></button>
+                        </div>
+                        <div class="portfolio-actions">
+                            <button class="action-button">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="portfolio-item">
+                <div class="portfolio-image"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK7Oxrb4rtEqQfSZd1mqXEm1n4S_JYVBeg4g&s" class="type">
+                    <div class="portfolio-badge">Popular</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Typing Test Game</h3>
+                    <p class="portfolio-description">E-commerce platform with product customization, subscription management, and seamless checkout experience.</p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">E-commerce</span>
+                        <span class="portfolio-tag">Subscription</span>
+                        <span class="portfolio-tag">Mobile-first</span>
+                    </div>
+                    <div class="portfolio-stats">
+                        <div class="portfolio-views">
+                            <i class="fas fa-eye"></i>
+                            <span>3.1K views</span><button> <span><a href="typing test.html">Play now</a></span></button>
+                        </div>
+                        <div class="portfolio-actions">
+                            <button class="action-button">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <div class="portfolio-badge">New</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Sarah Johnson Photography</h3>
+                    <p class="portfolio-description">Elegant portfolio website with gallery, booking system, and client proofing area for a professional photographer.</p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Portfolio</span>
+                        <span class="portfolio-tag">Gallery</span>
+                        <span class="portfolio-tag">Booking System</span>
+                    </div>
+                    <div class="portfolio-stats">
+                        <div class="portfolio-views">
+                            <i class="fas fa-eye"></i>
+                            <span>1.8K views</span><button> <span>PLAY NOW</span></button>
+                        </div>
+                        <div class="portfolio-actions">
+                            <button class="action-button">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <div class="portfolio-badge">Award Winner</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">HealthTrack Pro</h3>
+                    <p class="portfolio-description">Healthcare web application with patient management, appointment scheduling, and telemedicine features.</p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Web App</span>
+                        <span class="portfolio-tag">Healthcare</span>
+                        <span class="portfolio-tag">Real-time</span>
+                    </div>
+                    <div class="portfolio-stats">
+                        <div class="portfolio-views">
+                            <i class="fas fa-eye"></i>
+                            <span>4.2K views</span><button class="btn">play</button>
+                        </div>
+                        <div class="portfolio-actions">
+                            <button class="action-button">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <div class="portfolio-badge">Mobile</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">FitLife Tracker</h3>
+                    <p class="portfolio-description">Mobile-first fitness application with workout plans, progress tracking, and social features.</p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Mobile App</span>
+                        <span class="portfolio-tag">Fitness</span>
+                        <span class="portfolio-tag">PWA</span>
+                    </div>
+                    <div class="portfolio-stats">
+                        <div class="portfolio-views">
+                            <i class="fas fa-eye"></i>
+                            <span>2.9K views</span><button class="btn">play</button>
+                        </div>
+                        <div class="portfolio-actions">
+                            <button class="action-button">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="portfolio-item">
+                <div class="portfolio-image">
+                    <div class="portfolio-badge">Template</div>
+                </div>
+                <div class="portfolio-content">
+                    <h3 class="portfolio-title">Startup Launch Kit</h3>
+                    <p class="portfolio-description">Comprehensive template package for startups including website, landing pages, and admin dashboard.</p>
+                    <div class="portfolio-tags">
+                        <span class="portfolio-tag">Template</span>
+                        <span class="portfolio-tag">Startup</span>
+                        <span class="portfolio-tag">Multi-page</span>
+                    </div>
+                    <div class="portfolio-stats">
+                        <div class="portfolio-views">
+                            <i class="fas fa-eye"></i>
+                            <span>5.7K views</span><button class="btn">play</button>
+                        </div>
+                        <div class="portfolio-actions">
+                            <button class="action-button">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="categories">
+        <div class="container">
+            <h2 class="section-title">Explore by Category</h2>
+            <div class="categories-grid">
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="category-title">Websites</h3>
+                    <div class="category-count">42 Projects</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-palette"></i>
+                    </div>
+                    <h3 class="category-title">Templates</h3>
+                    <div class="category-count">128 Designs</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="category-title">Mobile Apps</h3>
+                    <div class="category-count">24 Projects</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3 class="category-title">E-commerce</h3>
+                    <div class="category-count">36 Stores</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="category-title">Web Apps</h3>
+                    <div class="category-count">18 Applications</div>
+                </div>
+                <div class="category-card">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="category-title">Dashboards</h3>
+                    <div class="category-count">27 Interfaces</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <h2 class="section-title">Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">250+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5K+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Client Satisfaction</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">15+</div>
+                    <div class="stat-label">Awards Won</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="featured">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="featured-slider">
+                <div class="featured-project">
+                    <div class="featured-image"></div>
+                    <div class="featured-content">
+                        <h3 class="featured-title">Global Finance Dashboard</h3>
+                        <p class="featured-description">A comprehensive financial dashboard for multinational corporations with real-time analytics, multi-currency support, and advanced reporting features.</p>
+                        <div class="featured-meta">
+                            <div class="featured-client">Global Finance Corp</div>
+                            <div class="featured-year">2023</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="featured-project">
+                    <div class="featured-image"></div>
+                    <div class="featured-content">
+                        <h3 class="featured-title">EduTech Learning Platform</h3>
+                        <p class="featured-description">An interactive learning management system with video courses, progress tracking, and AI-powered recommendations for personalized education.</p>
+                        <div class="featured-meta">
+                            <div class="featured-client">LearnTech Institute</div>
+                            <div class="featured-year">2023</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Ready to Create Something Amazing?</h2>
+            <p>Let's collaborate on your next project and bring your vision to life with our expertise and creativity.</p>
+            <button class="cta-button" style="background: white; color: var(--primary);">Start Your Project</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>CodeHub</h3>
+                    <p>Creating digital experiences that inspire and transform businesses.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Custom Website Design</a></li>
+                        <li><a href="#">Template Development</a></li>
+                        <li><a href="#">Web Application Development</a></li>
+                        <li><a href="#">Website Maintenance</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Forums</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                &copy; 2023 CodeHub. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Portfolio filtering
+        document.querySelectorAll('.filter-button').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.filter-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                // In a real app, this would filter the portfolio items
+                const category = this.textContent;
+                alert(`Filtering projects by: ${category}. In a real application, this would show only projects of the selected category.`);
+            });
+        });
+        
+        // Category card interaction
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const category = this.querySelector('.category-title').textContent;
+                alert(`Showing all ${category} projects. In a real application, this would filter the portfolio.`);
+            });
+        });
+        
+        // Portfolio item interaction
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const title = this.querySelector('.portfolio-title').textContent;
+                alert(`Opening project details for: ${title}. In a real application, this would open a project detail page.`);
+            });
+        });
+        
+        // Like button functionality
+        document.querySelectorAll('.action-button .fa-heart').forEach(heart => {
+            heart.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.classList.toggle('fas');
+                this.classList.toggle('far');
+                alert('Project added to favorites!');
+            });
+        });
+        
+        // Share button functionality
+        document.querySelectorAll('.action-button .fa-share').forEach(share => {
+            share.addEventListener('click', function(e) {
+                e.stopPropagation();
+                alert('Share this project with others!');
+            });
+        });
+        
+        // Start project button
+        document.querySelector('.cta-section .cta-button').addEventListener('click', function() {
+            alert('Redirecting to project inquiry form...');
+        });
+        
+        // Get inspired button
+        document.querySelector('.user-actions .cta-button').addEventListener('click', function() {
+            alert('Showing inspirational projects and case studies...');
+        });
+    </script>
+</body>
+</html>
